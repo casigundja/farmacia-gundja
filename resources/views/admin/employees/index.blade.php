@@ -1,0 +1,6 @@
+@extends('admin.layout')
+@section('title', 'Funcionários')
+@section('content')
+<div class="admin-head"><div><h1>Funcionários</h1><p>Contas de acesso da equipe.</p></div><a class="btn" href="{{ route('admin.employees.create') }}">+ Novo funcionário</a></div>
+<section class="table-wrap"><table><thead><tr><th>Nome</th><th>E-mail</th><th>Função</th><th>Telefone</th><th>Status</th><th>Ação</th></tr></thead><tbody>@forelse ($employees as $employee)<tr><td><strong>{{ $employee->user->name }}</strong></td><td>{{ $employee->user->email }}</td><td>{{ $employee->position ?? '—' }}</td><td>{{ $employee->phone ?? '—' }}</td><td><span class="status {{ $employee->active ? '' : 'off' }}">{{ $employee->active ? 'Ativo' : 'Inativo' }}</span></td><td style="white-space:nowrap"><a class="btn btn-secondary" href="{{ route('admin.employees.edit', $employee) }}">Editar</a>@if ($employee->active)<form action="{{ route('admin.employees.destroy', $employee) }}" method="POST" style="display:inline" onsubmit="return confirm('Desativar este acesso?')">@csrf @method('DELETE')<button class="btn btn-secondary" type="submit">Desativar</button></form>@endif</td></tr>@empty<tr><td colspan="6" class="muted">Nenhum funcionário cadastrado.</td></tr>@endforelse</tbody></table></section><div style="margin-top:20px">{{ $employees->links() }}</div>
+@endsection
