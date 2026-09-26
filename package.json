@@ -3,8 +3,10 @@
     "private": true,
     "type": "module",
     "scripts": {
+        "dev": "vite",
         "build": "vite build",
-        "dev": "vite"
+        "preview": "vite preview",
+        "deploy": "vite build && wrangler pages deploy dist --project-name=farmacia-gundja"
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.0.0",
@@ -15,5 +17,10 @@
     },
     "optionalDependencies": {
         "@laravel/multiplex": "^0.4.1"
+    },
+    "dependencies": {
+        "@supabase/supabase-js": "^2.117.2",
+        "lucide": "^1.48.0",
+        "pg": "^8.23.0"
     }
 }
