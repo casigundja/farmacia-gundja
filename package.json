@@ -6,7 +6,7 @@
         "dev": "vite",
         "build": "vite build",
         "preview": "vite preview",
-        "deploy": "vite build && wrangler pages deploy dist --project-name=farmacia-gundja"
+        "deploy": "vite build && npx wrangler pages deploy dist --project-name=farmacia-gundja"
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.0.0",
