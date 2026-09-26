@@ -12,11 +12,55 @@ class Product extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['category_id', 'brand_id', 'internal_code', 'barcode', 'name', 'slug', 'description', 'product_type', 'requires_prescription', 'controlled', 'cost_price', 'sale_price', 'minimum_stock', 'active'];
+    protected $fillable = [
+        'category_id',
+        'brand_id',
+        'supplier_id',
+        'internal_code',
+        'barcode',
+        'name',
+        'slug',
+        'description',
+        'dosage',
+        'pharmaceutical_form',
+        'product_type',
+        'requires_prescription',
+        'controlled',
+        'cost_price',
+        'sale_price',
+        'promotional_price',
+        'minimum_stock',
+        'active',
+    ];
 
+    /**
+     * @return array<string, string>
+     */
     protected function casts(): array
     {
-        return ['requires_prescription' => 'boolean', 'controlled' => 'boolean', 'active' => 'boolean', 'cost_price' => 'decimal:2', 'sale_price' => 'decimal:2'];
+        return [
+            'requires_prescription' => 'boolean',
+            'controlled' => 'boolean',
+            'active' => 'boolean',
+            'cost_price' => 'decimal:2',
+            'sale_price' => 'decimal:2',
+            'promotional_price' => 'decimal:2',
+        ];
+    }
+
+    public function effectivePrice(): float
+    {
+        return (float) ($this->promotional_price && $this->promotional_price > 0 ? $this->promotional_price : $this->sale_price);
+    }
+
+    public function formattedPrice(): string
+    {
+        return number_format($this->effectivePrice(), 2, ',', '.') . ' Kz';
+    }
+
+    public function supplier(): BelongsTo
+    {
+        return $this->belongsTo(Supplier::class);
     }
 
     public function category(): BelongsTo

@@ -87,6 +87,10 @@ class AddressController extends Controller
     private function validatedAddress(Request $request): array
     {
         return $request->validate([
+            'province' => ['nullable', 'string', 'max:100'],
+            'municipality' => ['nullable', 'string', 'max:100'],
+            'commune' => ['nullable', 'string', 'max:100'],
+            'reference_point' => ['nullable', 'string', 'max:255'],
             'zipcode' => ['required', 'string', 'max:10'],
             'street' => ['required', 'string', 'max:255'],
             'number' => ['required', 'string', 'max:30'],

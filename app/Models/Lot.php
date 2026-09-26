@@ -7,15 +7,39 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Lot extends Model
 {
-    protected $fillable = ['product_id', 'lot_number', 'expiration_date', 'quantity'];
+    protected $fillable = [
+        'product_id',
+        'branch_id',
+        'supplier_id',
+        'lot_number',
+        'manufacturing_date',
+        'expiration_date',
+        'quantity',
+    ];
 
+    /**
+     * @return array<string, string>
+     */
     protected function casts(): array
     {
-        return ['expiration_date' => 'date'];
+        return [
+            'manufacturing_date' => 'date',
+            'expiration_date' => 'date',
+        ];
     }
 
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function branch(): BelongsTo
+    {
+        return $this->belongsTo(Branch::class);
+    }
+
+    public function supplier(): BelongsTo
+    {
+        return $this->belongsTo(Supplier::class);
     }
 }

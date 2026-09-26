@@ -196,7 +196,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('order_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignId('sale_id')->nullable()->constrained()->cascadeOnDelete();
-            $table->enum('method', ['CASH', 'PIX', 'CREDIT_CARD', 'DEBIT_CARD', 'OTHER']);
+            $table->string('method', 50);
             $table->enum('status', ['PENDING', 'PAID', 'FAILED', 'REFUNDED', 'CANCELLED'])->default('PENDING');
             $table->decimal('amount', 10, 2);
             $table->string('transaction_code')->nullable();

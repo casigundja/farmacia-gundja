@@ -17,7 +17,7 @@
                 <td>{{ $sale->employee->user->name }}</td>
                 <td>{{ $sale->customer?->user?->name ?? 'Não identificado' }}</td>
                 <td>@foreach ($sale->payments as $payment)<div>{{ str($payment->method)->replace('_', ' ')->title() }} · {{ str($payment->status)->title() }}</div>@endforeach</td>
-                <td>R$ {{ number_format((float) $sale->total, 2, ',', '.') }}</td>
+                <td>{{ number_format((float) $sale->total, 2, ',', '.') }} Kz</td>
                 <td>
                     <span class="status">{{ str($sale->status)->title() }}</span>
                     @if ($sale->status === 'COMPLETED' && auth()->user()->hasPermission('sales.manage'))

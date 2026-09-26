@@ -18,8 +18,9 @@ class CartController extends Controller
         abort_unless($customer, 403);
         $cart = app(CartService::class)->activeCart($customer)->load('items.product.images');
         $subtotal = $cart->items->sum(fn (CartItem $item): float => $item->quantity * (float) $item->unit_price);
+        $hasPrescriptionItems = $cart->items->contains(fn (CartItem $item): bool => (bool) $item->product->requires_prescription);
 
-        return view('store.cart', compact('cart', 'subtotal'));
+        return view('store.cart', compact('cart', 'subtotal', 'hasPrescriptionItems'));
     }
 
     public function add(Request $request, Product $product, CartService $cartService): RedirectResponse

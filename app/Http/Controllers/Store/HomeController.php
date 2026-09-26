@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Store;
 
 use App\Http\Controllers\Controller;
+use App\Models\Branch;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\View\View;
@@ -20,6 +21,17 @@ class HomeController extends Controller
             ->limit(8)
             ->get();
 
-        return view('store.home', compact('categories', 'products'));
+        $promotionalProducts = Product::query()
+            ->with(['brand', 'images'])
+            ->withSum('availableLots as stock_quantity', 'quantity')
+            ->where('active', true)
+            ->whereNotNull('promotional_price')
+            ->orderByDesc('updated_at')
+            ->limit(4)
+            ->get();
+
+        $branches = Branch::query()->where('active', true)->get();
+
+        return view('store.home', compact('categories', 'products', 'promotionalProducts', 'branches'));
     }
 }

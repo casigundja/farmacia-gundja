@@ -10,8 +10,22 @@ class CategorySeeder extends Seeder
 {
     public function run(): void
     {
-        foreach (['Higiene e cuidados', 'Beleza', 'Perfumaria', 'Bebê'] as $name) {
-            Category::query()->updateOrCreate(['slug' => Str::slug($name)], ['name' => $name, 'active' => true]);
+        $categories = [
+            'Medicamentos',
+            'Higiene',
+            'Bebé',
+            'Beleza',
+            'Vitaminas e Suplementos',
+            'Primeiros Socorros',
+            'Higiene e cuidados',
+            'Perfumaria',
+        ];
+
+        foreach ($categories as $name) {
+            Category::query()->updateOrCreate(
+                ['slug' => Str::slug($name)],
+                ['name' => $name, 'active' => true]
+            );
         }
     }
 }

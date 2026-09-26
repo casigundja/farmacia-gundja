@@ -26,8 +26,8 @@ class ProductSeeder extends Seeder
             $product = Product::query()->updateOrCreate(
                 ['internal_code' => $code],
                 [
-                    'category_id' => Category::query()->where('name', $category)->value('id'),
-                    'brand_id' => Brand::query()->where('name', $brand)->value('id'),
+                    'category_id' => Category::query()->where('name', $category)->orWhere('slug', Str::slug($category))->value('id') ?? Category::query()->first()->id,
+                    'brand_id' => Brand::query()->where('name', $brand)->value('id') ?? Brand::query()->first()->id,
                     'name' => $name,
                     'slug' => Str::slug($name),
                     'product_type' => $type,

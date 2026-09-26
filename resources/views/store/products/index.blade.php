@@ -10,10 +10,13 @@
         <div><label for="q">Pesquisar</label><input id="q" name="q" value="{{ $filters['q'] ?? '' }}" placeholder="Nome ou código"></div>
         <div><label for="category">Categoria</label><select id="category" name="category"><option value="">Todas</option>@foreach ($categories as $category)<option value="{{ $category->id }}" @selected(($filters['category'] ?? '') == $category->id)>{{ $category->name }}</option>@endforeach</select></div>
         <div><label for="brand">Marca</label><select id="brand" name="brand"><option value="">Todas</option>@foreach ($brands as $brand)<option value="{{ $brand->id }}" @selected(($filters['brand'] ?? '') == $brand->id)>{{ $brand->name }}</option>@endforeach</select></div>
-        <div><label for="min">Preço mínimo</label><input id="min" name="min" type="number" min="0" step="0.01" value="{{ $filters['min'] ?? '' }}"></div>
-        <div><label for="max">Preço máximo</label><input id="max" name="max" type="number" min="0" step="0.01" value="{{ $filters['max'] ?? '' }}"></div>
+        <div><label for="min">Preço mínimo (Kz)</label><input id="min" name="min" type="number" min="0" step="100" value="{{ $filters['min'] ?? '' }}"></div>
+        <div><label for="max">Preço máximo (Kz)</label><input id="max" name="max" type="number" min="0" step="100" value="{{ $filters['max'] ?? '' }}"></div>
         <div style="display:flex;align-items:end"><button class="button" type="submit">Filtrar</button></div>
-        <label style="grid-column:1/-1;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink)"><input type="checkbox" name="available" value="1" @checked($filters['available'] ?? false)> Mostrar somente produtos disponíveis</label>
+        <div style="grid-column:1/-1;display:flex;gap:20px;font-size:13px;color:var(--ink);flex-wrap:wrap">
+            <label style="display:flex;align-items:center;gap:6px"><input type="checkbox" name="available" value="1" @checked($filters['available'] ?? false)> Mostrar somente produtos disponíveis em estoque</label>
+            <label style="display:flex;align-items:center;gap:6px"><input type="checkbox" name="prescription" value="1" @checked($filters['prescription'] ?? false)> Apenas medicamentos com receita médica</label>
+        </div>
     </form>
     <p style="color:var(--muted);font-size:13px">{{ $products->total() }} produto(s) encontrado(s)</p>
     @if ($products->isNotEmpty())

@@ -33,6 +33,12 @@ class Employee extends Model
             'sales.view' => 'Consultar vendas',
             'sales.manage' => 'Registrar vendas presenciais',
             'customers.view' => 'Consultar clientes',
+            'prescriptions.view' => 'Consultar receitas médicas',
+            'prescriptions.manage' => 'Validar e aprovar receitas médicas',
+            'cash.view' => 'Consultar caixas',
+            'cash.manage' => 'Operar caixa (abertura, sangria, fechamento)',
+            'branches.manage' => 'Gerenciar filiais da Farmácia',
+            'suppliers.manage' => 'Gerenciar fornecedores',
             'reports.view' => 'Visualizar relatórios',
             'audit.view' => 'Consultar auditoria',
         ];

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\CashRegister;
 use App\Models\Customer;
+use App\Models\Lot;
 use App\Models\Order;
+use App\Models\Prescription;
 use App\Models\Product;
 use App\Models\Sale;
 use Illuminate\View\View;
@@ -16,6 +19,13 @@ class DashboardController extends Controller
         $salesTotal = Sale::query()->where('status', 'COMPLETED')->whereDate('created_at', today())->sum('total');
         $ordersPending = Order::query()->whereIn('status', ['PENDING', 'CONFIRMED'])->count();
         $customersCount = Customer::query()->count();
+        $pendingPrescriptions = Prescription::query()->where('status', 'PENDING')->count();
+        $openCashRegisters = CashRegister::query()->where('status', 'OPEN')->count();
+        $expiringLotsCount = Lot::query()
+            ->where('status', 'AVAILABLE')
+            ->whereBetween('expiration_date', [today(), today()->addDays(60)])
+            ->count();
+
         $lowStockProducts = Product::query()
             ->withSum('availableLots as stock_quantity', 'quantity')
             ->where('active', true)
@@ -24,6 +34,15 @@ class DashboardController extends Controller
             ->limit(8)
             ->get();
 
-        return view('admin.dashboard', compact('salesTotal', 'ordersPending', 'customersCount', 'lowStockProducts'));
+        return view('admin.dashboard', compact(
+            'salesTotal',
+            'ordersPending',
+            'customersCount',
+            'pendingPrescriptions',
+            'openCashRegisters',
+            'expiringLotsCount',
+            'lowStockProducts'
+        ));
     }
 }
+

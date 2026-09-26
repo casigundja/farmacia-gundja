@@ -8,11 +8,26 @@
             @endif
         </div>
         <div class="product-body">
-            <div class="product-brand">{{ $product->brand?->name ?? $product->category?->name }}</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+                <span class="product-brand">{{ $product->brand?->name ?? $product->category?->name }}</span>
+                @if ($product->requires_prescription)
+                    <span style="background:#fff1f2;color:#be123c;border:1px solid #fecdd3;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:700" title="Medicamento sujeito a receita médica">Receita Obrigatória</span>
+                @endif
+            </div>
             <h3>{{ $product->name }}</h3>
-            <div class="price">R$ {{ number_format((float) $product->sale_price, 2, ',', '.') }}</div>
+            @if ($product->dosage || $product->pharmaceutical_form)
+                <div style="font-size:12px;color:var(--muted);margin-bottom:6px">{{ implode(' · ', array_filter([$product->dosage, $product->pharmaceutical_form])) }}</div>
+            @endif
+            <div class="price">
+                @if ($product->promotional_price && $product->promotional_price < $product->sale_price)
+                    <span>{{ number_format((float) $product->promotional_price, 2, ',', '.') }} Kz</span>
+                    <span style="font-size:12px;text-decoration:line-through;color:var(--muted);font-weight:normal;margin-left:6px">{{ number_format((float) $product->sale_price, 2, ',', '.') }} Kz</span>
+                @else
+                    <span>{{ number_format((float) $product->sale_price, 2, ',', '.') }} Kz</span>
+                @endif
+            </div>
             @if (($product->stock_quantity ?? 0) > 0)
-                <div class="availability">Disponível</div>
+                <div class="availability">Disponível em Estoque</div>
             @else
                 <div class="availability out">Indisponível no momento</div>
             @endif

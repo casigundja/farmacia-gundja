@@ -8,8 +8,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Customer extends Model
 {
-    protected $fillable = ['user_id', 'cpf', 'birth_date', 'phone'];
+    protected $fillable = ['user_id', 'cpf', 'nif_bi', 'birth_date', 'phone', 'province', 'municipality'];
 
+    /**
+     * @return array<string, string>
+     */
     protected function casts(): array
     {
         return ['birth_date' => 'date'];
@@ -33,5 +36,10 @@ class Customer extends Model
     public function carts(): HasMany
     {
         return $this->hasMany(Cart::class);
+    }
+
+    public function prescriptions(): HasMany
+    {
+        return $this->hasMany(Prescription::class);
     }
 }

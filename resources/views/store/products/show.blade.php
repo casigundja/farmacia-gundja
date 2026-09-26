@@ -16,19 +16,47 @@
         <div class="detail-copy">
             <span class="eyebrow" style="color:var(--wine)">{{ $product->brand?->name ?? $product->category->name }}</span>
             <h1>{{ $product->name }}</h1>
-            <div class="price">R$ {{ number_format((float) $product->sale_price, 2, ',', '.') }}</div>
+            <div class="price">
+                @if ($product->promotional_price && $product->promotional_price < $product->sale_price)
+                    <span>{{ number_format((float) $product->promotional_price, 2, ',', '.') }} Kz</span>
+                    <span style="font-size:16px;text-decoration:line-through;color:var(--muted);font-weight:normal;margin-left:8px">{{ number_format((float) $product->sale_price, 2, ',', '.') }} Kz</span>
+                    <span style="background:#dcfce7;color:#15803d;font-size:12px;padding:3px 8px;border-radius:6px;margin-left:8px;vertical-align:middle">Promoção</span>
+                @else
+                    <span>{{ number_format((float) $product->sale_price, 2, ',', '.') }} Kz</span>
+                @endif
+            </div>
+
+            @if ($product->dosage || $product->pharmaceutical_form)
+                <div style="margin:10px 0;padding:10px 14px;background:#fdf2f4;border-radius:8px;border:1px solid #fce7ec;display:flex;gap:20px;font-size:13px">
+                    @if ($product->dosage)
+                        <div><strong>Dosagem:</strong> {{ $product->dosage }}</div>
+                    @endif
+                    @if ($product->pharmaceutical_form)
+                        <div><strong>Forma Farmacêutica:</strong> {{ $product->pharmaceutical_form }}</div>
+                    @endif
+                    @if ($product->internal_code)
+                        <div><strong>Cód:</strong> {{ $product->internal_code }}</div>
+                    @endif
+                </div>
+            @endif
+
             @if ($product->availableLots->sum('quantity') > 0)
-                <p class="availability">Disponível para compra</p>
+                <p class="availability">✓ Disponível para compra imediata</p>
             @else
-                <p class="availability out">Indisponível no momento</p>
+                <p class="availability out">✕ Indisponível no momento</p>
             @endif
-            @if ($product->requires_prescription || $product->controlled)
-                <p class="notice">Este produto possui regras específicas de venda. Consulte a farmácia para confirmar os requisitos aplicáveis.</p>
+
+            @if ($product->requires_prescription)
+                <div class="notice" style="background:#fff1f2;border-color:#fecdd3;color:#9f1239;margin:16px 0">
+                    <strong>⚠️ Medicamento Sujeito a Receita Médica Obrigatória</strong>
+                    <p style="margin:4px 0 0;font-size:12px">Em cumprimento da legislação e regulamentação sanitária da República de Angola, a dispensa deste medicamento requer a apresentação e validação prévia de uma receita médica válida emitida por profissional habilitado. Poderá anexar a sua receita no momento do checkout.</p>
+                </div>
             @endif
+
             @if ($product->description)
-                <h3>Sobre o produto</h3><p style="color:var(--muted)">{{ $product->description }}</p>
+                <h3>Sobre o produto</h3><p style="color:var(--muted);line-height:1.6">{{ $product->description }}</p>
             @endif
-            <p style="font-size:13px;color:var(--muted)">Categoria: {{ $product->category->name }}</p>
+            <p style="font-size:13px;color:var(--muted)">Categoria: <strong>{{ $product->category->name }}</strong></p>
             @if ($product->availableLots->sum('quantity') > 0)
                 @auth
                     @if (auth()->user()->isCustomer())

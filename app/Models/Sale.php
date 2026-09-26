@@ -8,7 +8,39 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Sale extends Model
 {
-    protected $fillable = ['sale_number', 'employee_id', 'customer_id', 'subtotal', 'discount', 'total', 'status'];
+    protected $fillable = [
+        'sale_number',
+        'branch_id',
+        'cash_register_id',
+        'employee_id',
+        'customer_id',
+        'subtotal',
+        'discount',
+        'total',
+        'status',
+    ];
+
+    /**
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'subtotal' => 'decimal:2',
+            'discount' => 'decimal:2',
+            'total' => 'decimal:2',
+        ];
+    }
+
+    public function branch(): BelongsTo
+    {
+        return $this->belongsTo(Branch::class);
+    }
+
+    public function cashRegister(): BelongsTo
+    {
+        return $this->belongsTo(CashRegister::class);
+    }
 
     public function employee(): BelongsTo
     {
@@ -28,5 +60,10 @@ class Sale extends Model
     public function payments(): HasMany
     {
         return $this->hasMany(Payment::class);
+    }
+
+    public function formattedTotal(): string
+    {
+        return number_format((float) $this->total, 2, ',', '.') . ' Kz';
     }
 }

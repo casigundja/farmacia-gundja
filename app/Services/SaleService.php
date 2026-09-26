@@ -68,6 +68,27 @@ class SaleService
                 'amount' => $sale->total,
                 'paid_at' => now(),
             ]);
+            $cashRegister = \App\Models\CashRegister::query()
+                ->where('user_id', $user->id)
+                ->where('status', 'OPEN')
+                ->first();
+
+            if ($cashRegister) {
+                $sale->update([
+                    'branch_id' => $cashRegister->branch_id,
+                    'cash_register_id' => $cashRegister->id,
+                ]);
+
+                \App\Models\CashMovement::query()->create([
+                    'cash_register_id' => $cashRegister->id,
+                    'type' => 'SALE',
+                    'amount' => $sale->total,
+                    'payment_method' => $paymentMethod,
+                    'sale_id' => $sale->id,
+                    'reason' => 'Venda balcão '.$sale->sale_number,
+                ]);
+            }
+
             $this->auditService->log('SALE_CREATED', $sale, $user, null, ['sale_number' => $sale->sale_number, 'total' => (float) $sale->total], $ipAddress, $userAgent);
 
             return $sale;

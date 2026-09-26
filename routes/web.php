@@ -1,16 +1,20 @@
 <?php
 
 use App\Http\Controllers\Admin\AuditLogController;
+use App\Http\Controllers\Admin\BranchController;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\CashRegisterController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CustomerController as AdminCustomerController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+use App\Http\Controllers\Admin\PrescriptionController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\SaleController as AdminSaleController;
 use App\Http\Controllers\Admin\StockController;
+use App\Http\Controllers\Admin\SupplierController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Customer\AddressController as CustomerAddressController;
 use App\Http\Controllers\Customer\OrderController as CustomerOrderController;
@@ -18,6 +22,7 @@ use App\Http\Controllers\Customer\ProfileController as CustomerProfileController
 use App\Http\Controllers\Store\CartController;
 use App\Http\Controllers\Store\CheckoutController;
 use App\Http\Controllers\Store\HomeController;
+use App\Http\Controllers\Store\PageController;
 use App\Http\Controllers\Store\ProductController;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -26,6 +31,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/produtos', [ProductController::class, 'index'])->name('products.index');
 Route::get('/produto/{product:slug}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/sobre-nos', [PageController::class, 'about'])->name('pages.about');
+Route::get('/servicos', [PageController::class, 'services'])->name('pages.services');
+Route::get('/farmacias', [PageController::class, 'branches'])->name('pages.branches');
+Route::get('/contactos', [PageController::class, 'contact'])->name('pages.contact');
+Route::get('/perguntas-frequentes', [PageController::class, 'faq'])->name('pages.faq');
+Route::get('/privacidade', [PageController::class, 'privacy'])->name('pages.privacy');
+Route::get('/termos', [PageController::class, 'terms'])->name('pages.terms');
+
 Route::get('/login', [AuthController::class, 'createLogin'])->middleware('guest')->name('login');
 Route::post('/login', [AuthController::class, 'login'])->middleware(['guest', 'throttle:5,1'])->name('login.store');
 Route::get('/cadastro', [AuthController::class, 'createRegistration'])->middleware('guest')->name('register');
@@ -53,6 +66,10 @@ Route::middleware(['auth', 'employee'])->prefix('admin')->name('admin.')->group(
     Route::get('/', function (Request $request): RedirectResponse {
         $destinations = [
             'dashboard.view' => 'admin.dashboard',
+            'prescriptions.view' => 'admin.prescriptions.index',
+            'cash.view' => 'admin.cash.index',
+            'branches.manage' => 'admin.branches.index',
+            'suppliers.manage' => 'admin.suppliers.index',
             'products.view' => 'admin.products.index',
             'categories.view' => 'admin.categories.index',
             'brands.view' => 'admin.brands.index',
@@ -77,6 +94,27 @@ Route::middleware(['auth', 'employee'])->prefix('admin')->name('admin.')->group(
     Route::get('/auditoria', [AuditLogController::class, 'index'])->middleware('permission:audit.view')->name('audit.index');
     Route::get('/clientes', [AdminCustomerController::class, 'index'])->middleware('permission:customers.view')->name('customers.index');
     Route::get('/clientes/{customer}', [AdminCustomerController::class, 'show'])->middleware('permission:customers.view')->name('customers.show');
+
+    // Validação de Receitas Médicas (Farmacêutico)
+    Route::get('/receitas', [PrescriptionController::class, 'index'])->middleware('permission:prescriptions.view')->name('prescriptions.index');
+    Route::get('/receitas/{prescription}', [PrescriptionController::class, 'show'])->middleware('permission:prescriptions.view')->name('prescriptions.show');
+    Route::post('/receitas/{prescription}/avaliar', [PrescriptionController::class, 'review'])->middleware('permission:prescriptions.manage')->name('prescriptions.review');
+
+    // Módulo de Caixa
+    Route::get('/caixa', [CashRegisterController::class, 'index'])->middleware('permission:cash.view')->name('cash.index');
+    Route::post('/caixa/abrir', [CashRegisterController::class, 'store'])->middleware('permission:cash.manage')->name('cash.open');
+    Route::post('/caixa/{cashRegister}/movimento', [CashRegisterController::class, 'movement'])->middleware('permission:cash.manage')->name('cash.movement');
+    Route::post('/caixa/{cashRegister}/fechar', [CashRegisterController::class, 'close'])->middleware('permission:cash.manage')->name('cash.close');
+
+    // Filiais / Multiunidades
+    Route::get('/filiais', [BranchController::class, 'index'])->middleware('permission:branches.manage')->name('branches.index');
+    Route::post('/filiais', [BranchController::class, 'store'])->middleware('permission:branches.manage')->name('branches.store');
+    Route::put('/filiais/{branch}', [BranchController::class, 'update'])->middleware('permission:branches.manage')->name('branches.update');
+
+    // Fornecedores
+    Route::get('/fornecedores', [SupplierController::class, 'index'])->middleware('permission:suppliers.manage')->name('suppliers.index');
+    Route::post('/fornecedores', [SupplierController::class, 'store'])->middleware('permission:suppliers.manage')->name('suppliers.store');
+    Route::put('/fornecedores/{supplier}', [SupplierController::class, 'update'])->middleware('permission:suppliers.manage')->name('suppliers.update');
 
     Route::get('/categorias', [CategoryController::class, 'index'])->middleware('permission:categories.view')->name('categories.index');
     Route::middleware('permission:categories.manage')->group(function (): void {
