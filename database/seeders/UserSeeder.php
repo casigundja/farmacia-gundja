@@ -26,8 +26,8 @@ class UserSeeder extends Seeder
             ]
         );
 
-        // 2. Atendente
-        User::updateOrCreate(
+        // 2. Atendente (Acesso a Pedidos, Clientes, Caixa, Balcão e Receitas)
+        $attendantUser = User::updateOrCreate(
             ['email' => 'atendente@farmaciagundja.ao'],
             [
                 'name' => 'Atendente Balcão',
@@ -37,9 +37,29 @@ class UserSeeder extends Seeder
                 'status' => true,
             ]
         );
+        \App\Models\Employee::updateOrCreate(
+            ['user_id' => $attendantUser->id],
+            [
+                'position' => 'Atendente de Balcão e Pedidos',
+                'phone' => '+244923000002',
+                'active' => true,
+                'permissions' => [
+                    'dashboard.view',
+                    'orders.view',
+                    'orders.manage',
+                    'customers.view',
+                    'prescriptions.view',
+                    'prescriptions.manage',
+                    'cash.view',
+                    'cash.manage',
+                    'sales.view',
+                    'sales.manage',
+                ],
+            ]
+        );
 
-        // 3. Estoquista
-        User::updateOrCreate(
+        // 3. Estoquista (Acesso a Produtos, Estoque, Lotes, Categorias, Marcas e Fornecedores)
+        $stockistUser = User::updateOrCreate(
             ['email' => 'estoquista@farmaciagundja.ao'],
             [
                 'name' => 'Estoquista Farmácia',
@@ -47,6 +67,26 @@ class UserSeeder extends Seeder
                 'role' => 'stockist',
                 'phone' => '+244923000003',
                 'status' => true,
+            ]
+        );
+        \App\Models\Employee::updateOrCreate(
+            ['user_id' => $stockistUser->id],
+            [
+                'position' => 'Encarregado de Estoque e Armazém',
+                'phone' => '+244923000003',
+                'active' => true,
+                'permissions' => [
+                    'dashboard.view',
+                    'products.view',
+                    'products.manage',
+                    'categories.view',
+                    'categories.manage',
+                    'brands.view',
+                    'brands.manage',
+                    'stock.view',
+                    'stock.manage',
+                    'suppliers.manage',
+                ],
             ]
         );
 
