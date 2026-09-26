@@ -52,7 +52,7 @@ export function renderCheckoutModal() {
                 <input type="radio" name="deliveryType" value="pickup" checked class="mt-0.5 text-emerald-600 focus:ring-emerald-500">
                 <div>
                   <div class="text-xs font-bold text-slate-800">Levantamento na Farmácia</div>
-                  <div class="text-[11px] text-slate-500 mt-0.5">Levante em Luanda ou Bailundo sem custos adicionais.</div>
+                  <div class="text-[11px] text-slate-500 mt-0.5">Levante numa das unidades da Farmácia Gundja em Luanda sem custos adicionais.</div>
                   <span class="inline-block mt-1 text-[10px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-md">Grátis</span>
                 </div>
               </label>
@@ -60,8 +60,8 @@ export function renderCheckoutModal() {
               <label class="border-2 border-slate-200 hover:border-slate-300 p-3.5 rounded-2xl cursor-pointer flex items-start gap-3 transition-colors delivery-option" data-type="delivery">
                 <input type="radio" name="deliveryType" value="delivery" class="mt-0.5 text-emerald-600 focus:ring-emerald-500">
                 <div>
-                  <div class="text-xs font-bold text-slate-800">Entrega ao Domicílio</div>
-                  <div class="text-[11px] text-slate-500 mt-0.5">Entregamos na sua residência ou trabalho.</div>
+                  <div class="text-xs font-bold text-slate-800">Entrega ao Domicílio em Luanda</div>
+                  <div class="text-[11px] text-slate-500 mt-0.5">Talatona, Viana, Belas, Maianga, Cazenga e arredores.</div>
                   <span class="inline-block mt-1 text-[10px] font-bold text-slate-700 bg-slate-100 px-2 py-0.5 rounded-md">+2.000 Kz</span>
                 </div>
               </label>
@@ -71,8 +71,9 @@ export function renderCheckoutModal() {
             <div id="pickup-branch-group" class="mt-3">
               <label class="block text-xs font-semibold text-slate-600 mb-1">Escolha a Filial de Levantamento:</label>
               <select name="branchId" class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 bg-white">
-                <option value="1">Farmácia Gundja — Luanda (Av. Deolinda Rodrigues)</option>
-                <option value="2">Farmácia Gundja — Bailundo (Rua Principal, Huambo)</option>
+                <option value="1">Farmácia Gundja — Sede Luanda Centro (Rua Rainha Ginga)</option>
+                <option value="2">Farmácia Gundja — Talatona (Shopping Talatona)</option>
+                <option value="3">Farmácia Gundja — Viana (Estrada de Catete)</option>
               </select>
             </div>
 

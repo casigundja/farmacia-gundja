@@ -90,7 +90,8 @@ class SupabaseService {
       const formatted = data.map(p => {
         const fallback = initialProducts.find(ip => ip.slug === p.slug || ip.sku === p.sku) || {};
         const luandaInv = p.inventories?.find(i => i.branch_id === 1)?.quantity || fallback.stock?.luanda || 50;
-        const bailundoInv = p.inventories?.find(i => i.branch_id === 2)?.quantity || fallback.stock?.bailundo || 30;
+        const talatonaInv = p.inventories?.find(i => i.branch_id === 2)?.quantity || fallback.stock?.talatona || 30;
+        const vianaInv = p.inventories?.find(i => i.branch_id === 3)?.quantity || fallback.stock?.viana || 20;
 
         return {
           id: p.id,
@@ -108,7 +109,7 @@ class SupabaseService {
           unit: p.unit || fallback.unit || 'unidade',
           featured: p.featured,
           requires_prescription: fallback.requires_prescription || false,
-          stock: { luanda: luandaInv, bailundo: bailundoInv },
+          stock: { luanda: luandaInv, talatona: talatonaInv, viana: vianaInv },
           badge: fallback.badge || (p.featured ? 'Destaque' : null),
           image: fallback.image || 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&auto=format&fit=crop&q=80'
         };

@@ -99,8 +99,9 @@ export function renderAdminModal() {
           <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 text-xs text-slate-600">
             <h4 class="font-bold text-slate-800 mb-1">Filiais Farmácia Gundja Activas:</h4>
             <ul class="list-disc list-inside space-y-1 text-slate-500">
-              <li><strong>Luanda:</strong> Av. Deolinda Rodrigues (Stock total: 50 un/produto)</li>
-              <li><strong>Bailundo (Huambo):</strong> Rua Principal do Comércio (Stock total: 30 un/produto)</li>
+              <li><strong>Sede Luanda Centro:</strong> Rua Rainha Ginga, Ingombota</li>
+              <li><strong>Talatona:</strong> Av. Luanda Sul, Shopping Talatona</li>
+              <li><strong>Viana:</strong> Estrada de Catete, Km 14</li>
             </ul>
           </div>
         </div>

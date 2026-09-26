@@ -135,7 +135,7 @@ export function renderCartDrawer() {
             </div>
             <div class="text-[11px] text-slate-400 flex items-center gap-1">
               <span>ⓘ</span>
-              <span>Entrega rápida ou levantamento nas farmácias de Luanda e Bailundo.</span>
+              <span>Entrega ao domicílio em Luanda ou levantamento nas farmácias Gundja.</span>
             </div>
             <button id="open-checkout-btn" class="w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 active:scale-[0.99] text-white rounded-xl font-bold text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2">
               <span>Finalizar Pedido</span>

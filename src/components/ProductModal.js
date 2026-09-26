@@ -60,24 +60,34 @@ export function openProductModal(product) {
       <!-- Branch Availability Box -->
       <div class="bg-slate-50 border border-slate-100 rounded-2xl p-4">
         <h4 class="text-xs font-bold text-slate-700 mb-2">Disponibilidade nas Farmácias Gundja:</h4>
-        <div class="grid grid-cols-2 gap-2 text-xs">
-          <div class="p-2.5 bg-white rounded-xl border border-slate-200/70 flex items-center justify-between">
+        <div class="grid grid-cols-3 gap-2 text-xs">
+          <div class="p-2 bg-white rounded-xl border border-slate-200/70 flex flex-col justify-between">
             <div>
-              <div class="font-semibold text-slate-800">Luanda</div>
-              <div class="text-[10px] text-slate-400">Talatona / Deolinda</div>
+              <div class="font-semibold text-slate-800 text-[11px]">Sede Centro</div>
+              <div class="text-[9px] text-slate-400">Ingombota</div>
             </div>
-            <span class="text-xs font-bold ${product.stock?.luanda > 0 ? 'text-emerald-600' : 'text-rose-500'}">
+            <span class="text-xs font-bold mt-1 ${product.stock?.luanda > 0 ? 'text-emerald-600' : 'text-rose-500'}">
               ${product.stock?.luanda > 0 ? `${product.stock.luanda} un` : 'Esgotado'}
             </span>
           </div>
 
-          <div class="p-2.5 bg-white rounded-xl border border-slate-200/70 flex items-center justify-between">
+          <div class="p-2 bg-white rounded-xl border border-slate-200/70 flex flex-col justify-between">
             <div>
-              <div class="font-semibold text-slate-800">Bailundo</div>
-              <div class="text-[10px] text-slate-400">Huambo / Centro</div>
+              <div class="font-semibold text-slate-800 text-[11px]">Talatona</div>
+              <div class="text-[9px] text-slate-400">Shopping</div>
             </div>
-            <span class="text-xs font-bold ${product.stock?.bailundo > 0 ? 'text-emerald-600' : 'text-rose-500'}">
-              ${product.stock?.bailundo > 0 ? `${product.stock.bailundo} un` : 'Esgotado'}
+            <span class="text-xs font-bold mt-1 ${product.stock?.talatona > 0 ? 'text-emerald-600' : 'text-rose-500'}">
+              ${product.stock?.talatona > 0 ? `${product.stock.talatona} un` : 'Esgotado'}
+            </span>
+          </div>
+
+          <div class="p-2 bg-white rounded-xl border border-slate-200/70 flex flex-col justify-between">
+            <div>
+              <div class="font-semibold text-slate-800 text-[11px]">Viana</div>
+              <div class="text-[9px] text-slate-400">Km 14</div>
+            </div>
+            <span class="text-xs font-bold mt-1 ${product.stock?.viana > 0 ? 'text-emerald-600' : 'text-rose-500'}">
+              ${product.stock?.viana > 0 ? `${product.stock.viana} un` : 'Esgotado'}
             </span>
           </div>
         </div>

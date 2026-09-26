@@ -1,7 +1,7 @@
 import { formatKz } from '../data/initialData.js';
 
 export function renderProductCard(product, currentBranch = 'luanda') {
-  const stock = currentBranch === 'luanda' ? product.stock?.luanda : product.stock?.bailundo;
+  const stock = product.stock?.[currentBranch] ?? product.stock?.luanda ?? 25;
   const isAvailable = (stock || 0) > 0;
   const discountPercent = product.price > product.sale_price 
     ? Math.round(((product.price - product.sale_price) / product.price) * 100) 

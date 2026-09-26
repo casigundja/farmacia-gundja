@@ -68,21 +68,21 @@ function renderAppShell() {
   return `
     <div class="min-h-screen flex flex-col bg-slate-50 text-slate-800">
       <!-- Top announcement bar -->
-      <div class="bg-emerald-950 text-emerald-100 text-[11px] py-1.5 px-4">
+      <div class="bg-[#3b0a1e] text-white text-[11px] py-1.5 px-4 border-b border-[#5c0e2c]">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-1">
           <div class="flex items-center gap-2">
-            <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span>Farmácia Gundja aberta em <strong>Luanda</strong> e <strong>Bailundo</strong> • Entregas rápidas ao domicílio</span>
+            <span class="inline-block w-2 h-2 rounded-full bg-[#eea876] animate-pulse"></span>
+            <span>Farmácia Gundja · <strong>Saúde, confiança e cuidado perto de si</strong> · Luanda (Sede Centro, Talatona e Viana)</span>
           </div>
-          <div class="flex items-center gap-4 text-emerald-300">
-            <span>Apoio Farmacêutico: <strong>+244 923 111 222</strong></span>
+          <div class="flex items-center gap-4 text-[#f7e9ee]">
+            <span>WhatsApp Apoio: <strong>+244 923 000 001</strong></span>
             <button id="header-admin-trigger" class="hover:text-white transition-colors underline font-medium cursor-pointer">Área de Gestão</button>
           </div>
         </div>
       </div>
 
       <!-- Main Header / Nav -->
-      <header class="sticky top-0 z-40 bg-white/90 glass-nav border-b border-slate-200/80 transition-all">
+      <header class="sticky top-0 z-40 bg-white/95 glass-nav border-b border-slate-200/80 transition-all">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
           <!-- Logo & Brand -->
           <div class="flex items-center gap-3">
@@ -90,9 +90,9 @@ function renderAppShell() {
               <img src="/images/logo.png" alt="Farmácia Gundja" class="h-12 w-auto object-contain rounded-lg drop-shadow-sm group-hover:scale-105 transition-transform" onerror="this.style.display='none'">
               <div>
                 <span class="text-xl font-black text-slate-900 tracking-tight flex items-center gap-1">
-                  Farmácia <span class="text-emerald-600">Gundja</span>
+                  Farmácia <span class="text-[#5c0e2c]">Gundja</span>
                 </span>
-                <span class="block text-[10px] uppercase font-bold text-slate-400 tracking-widest">Saúde & Bem-Estar</span>
+                <span class="block text-[10px] uppercase font-bold text-[#5c0e2c] tracking-widest">Saúde, Confiança & Cuidado</span>
               </div>
             </a>
           </div>
@@ -104,7 +104,7 @@ function renderAppShell() {
                 type="text" 
                 id="search-input" 
                 placeholder="Pesquisar medicamento, pomada, vitamina, marca..." 
-                class="w-full text-xs pl-10 pr-4 py-2.5 rounded-2xl border border-slate-200 bg-slate-50/80 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all"
+                class="w-full text-xs pl-10 pr-4 py-2.5 rounded-2xl border border-slate-200 bg-slate-50/80 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#5c0e2c]/20 focus:border-[#5c0e2c] transition-all"
               >
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute left-3.5 top-3 text-slate-400"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
             </div>
@@ -114,16 +114,19 @@ function renderAppShell() {
           <div class="flex items-center gap-3">
             <!-- Branch Selector -->
             <div class="flex items-center bg-slate-100 p-1 rounded-2xl border border-slate-200/60 text-xs font-semibold">
-              <button class="branch-btn px-3 py-1.5 rounded-xl transition-all ${state.currentBranch === 'luanda' ? 'bg-white text-emerald-700 shadow-sm' : 'text-slate-500 hover:text-slate-800'}" data-branch="luanda">
-                Luanda
+              <button class="branch-btn px-2.5 py-1.5 rounded-xl transition-all ${state.currentBranch === 'luanda' ? 'bg-[#5c0e2c] text-white shadow-sm' : 'text-slate-500 hover:text-slate-800'}" data-branch="luanda">
+                Sede Centro
               </button>
-              <button class="branch-btn px-3 py-1.5 rounded-xl transition-all ${state.currentBranch === 'bailundo' ? 'bg-white text-emerald-700 shadow-sm' : 'text-slate-500 hover:text-slate-800'}" data-branch="bailundo">
-                Bailundo
+              <button class="branch-btn px-2.5 py-1.5 rounded-xl transition-all ${state.currentBranch === 'talatona' ? 'bg-[#5c0e2c] text-white shadow-sm' : 'text-slate-500 hover:text-slate-800'}" data-branch="talatona">
+                Talatona
+              </button>
+              <button class="branch-btn px-2.5 py-1.5 rounded-xl transition-all ${state.currentBranch === 'viana' ? 'bg-[#5c0e2c] text-white shadow-sm' : 'text-slate-500 hover:text-slate-800'}" data-branch="viana">
+                Viana
               </button>
             </div>
 
             <!-- WhatsApp Direct CTA -->
-            <a href="https://wa.me/244923111222?text=Ol%C3%A1%20Farm%C3%A1cia%20Gundja,%20gostaria%20de%20informa%C3%A7%C3%B5es." target="_blank" class="hidden lg:flex items-center gap-1.5 bg-[#25D366]/10 text-[#128C7E] hover:bg-[#25D366]/20 font-bold text-xs px-3.5 py-2.5 rounded-2xl transition-colors">
+            <a href="https://wa.me/244923000001?text=Ol%C3%A1%20Farm%C3%A1cia%20Gundja,%20gostaria%20de%20informa%C3%A7%C3%B5es." target="_blank" class="hidden lg:flex items-center gap-1.5 bg-[#25D366]/10 text-[#128C7E] hover:bg-[#25D366]/20 font-bold text-xs px-3.5 py-2.5 rounded-2xl transition-colors">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
               <span>WhatsApp Farmácia</span>
             </a>
@@ -153,44 +156,44 @@ function renderAppShell() {
       <!-- Main Content -->
       <main class="flex-1">
         <!-- Hero Section -->
-        <section class="relative bg-gradient-to-br from-emerald-900 via-emerald-800 to-teal-950 text-white overflow-hidden py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
+        <section class="relative bg-gradient-to-br from-[#3b0a1e] via-[#5c0e2c] to-[#762542] text-white overflow-hidden py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
           <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
           <div class="max-w-7xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div class="lg:col-span-7 space-y-6">
-              <div class="inline-flex items-center gap-2 bg-emerald-500/20 border border-emerald-400/30 text-emerald-200 text-xs font-semibold px-3 py-1.5 rounded-full backdrop-blur-md">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                <span>Farmácia e Dermocosmética em Angola</span>
+              <div class="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-[#eea876] text-xs font-semibold px-3 py-1.5 rounded-full backdrop-blur-md">
+                <span class="w-2 h-2 rounded-full bg-[#eea876] animate-ping"></span>
+                <span>Farmácia Gundja · Angola (Kz)</span>
               </div>
               <h1 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
-                A sua saúde e bem-estar em primeiro lugar.
+                Saúde, confiança e cuidado perto de si.
               </h1>
-              <p class="text-sm sm:text-base text-emerald-100/90 max-w-xl leading-relaxed">
-                Medicamentos essenciais, cuidados para mamã e bebé, dermocosmética e orientação farmacêutica de confiança em Luanda e Bailundo.
+              <p class="text-sm sm:text-base text-rose-100 max-w-xl leading-relaxed">
+                Medicamentos 100% autênticos, cuidados infantis, dermocosmética e apoio farmacêutico de referência em Luanda com entregas rápidas ao domicílio.
               </p>
               
               <div class="flex flex-wrap gap-3 pt-2">
-                <a href="#catalogo" class="px-6 py-3.5 rounded-2xl bg-white text-emerald-950 font-bold text-xs hover:bg-emerald-50 active:scale-95 transition-all shadow-lg flex items-center gap-2">
-                  <span>Ver Todos os Medicamentos</span>
+                <a href="#catalogo" class="px-6 py-3.5 rounded-2xl bg-white text-[#5c0e2c] font-bold text-xs hover:bg-[#f7e9ee] active:scale-95 transition-all shadow-lg flex items-center gap-2">
+                  <span>Consultar Catálogo de Produtos</span>
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                 </a>
-                <a href="https://wa.me/244923111222?text=Ol%C3%A1%20Farm%C3%A1cia%20Gundja,%20tenho%20uma%20receita%20m%C3%A9dica%20para%20enviar." target="_blank" class="px-5 py-3.5 rounded-2xl bg-emerald-700/60 hover:bg-emerald-700 border border-emerald-500/40 text-white font-bold text-xs transition-all flex items-center gap-2">
-                  <span>Enviar Receita por WhatsApp</span>
+                <a href="https://wa.me/244923000001?text=Ol%C3%A1%20Farm%C3%A1cia%20Gundja,%20tenho%20uma%20receita%20m%C3%A9dica%20para%20enviar." target="_blank" class="px-5 py-3.5 rounded-2xl bg-[#3b0a1e]/80 hover:bg-[#3b0a1e] border border-white/20 text-white font-bold text-xs transition-all flex items-center gap-2">
+                  <span>WhatsApp Apoio Farmacêutico</span>
                 </a>
               </div>
 
               <!-- Badges -->
-              <div class="grid grid-cols-3 gap-3 pt-4 border-t border-emerald-700/50 text-emerald-200 text-xs">
+              <div class="grid grid-cols-3 gap-3 pt-4 border-t border-white/10 text-rose-100 text-xs">
                 <div>
-                  <div class="font-bold text-white text-sm">100% Autêntico</div>
-                  <div class="text-[11px] text-emerald-300">Medicamentos certificados</div>
+                  <div class="font-bold text-white text-sm">100% Genuíno</div>
+                  <div class="text-[11px] text-[#eea876]">Medicamentos certificados</div>
                 </div>
                 <div>
-                  <div class="font-bold text-white text-sm">2 Filiais</div>
-                  <div class="text-[11px] text-emerald-300">Luanda & Bailundo</div>
+                  <div class="font-bold text-white text-sm">3 Filiais</div>
+                  <div class="text-[11px] text-[#eea876]">Sede, Talatona & Viana</div>
                 </div>
                 <div>
                   <div class="font-bold text-white text-sm">Entregas Rápidas</div>
-                  <div class="text-[11px] text-emerald-300">Directo ao domicílio</div>
+                  <div class="text-[11px] text-[#eea876]">Ao domicílio em Luanda</div>
                 </div>
               </div>
             </div>
@@ -287,16 +290,16 @@ function renderAppShell() {
             <div class="text-center max-w-2xl mx-auto space-y-2">
               <span class="text-xs font-bold uppercase tracking-wider text-emerald-600">Localização e Atendimento</span>
               <h2 class="text-2xl font-bold text-slate-900">Visite as Nossas Farmácias</h2>
-              <p class="text-xs sm:text-sm text-slate-500">Estamos presentes em Luanda e no Huambo (Bailundo) com equipas de farmacêuticos dedicados à sua saúde.</p>
+              <p class="text-xs sm:text-sm text-slate-500">Estamos presentes em Luanda com 3 unidades modernas e farmacêuticos dedicados à sua saúde e bem-estar.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
               ${initialBranches.map(b => `
                 <div class="p-6 rounded-3xl border border-slate-200 bg-slate-50/50 hover:bg-slate-50 transition-all space-y-4">
                   <div class="flex items-start justify-between">
                     <div>
                       <span class="text-[11px] font-bold text-emerald-600 uppercase tracking-wider">${b.province}</span>
-                      <h3 class="text-lg font-bold text-slate-900">${b.name}</h3>
+                      <h3 class="text-base font-bold text-slate-900">${b.name}</h3>
                     </div>
                     <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2.5 py-1 rounded-full">● Aberto</span>
                   </div>
@@ -317,7 +320,7 @@ function renderAppShell() {
                   </div>
 
                   <div class="pt-2 flex gap-3">
-                    <a href="https://wa.me/${b.whatsapp}?text=Ol%C3%A1%20Farm%C3%A1cia%20Gundja%20de%20${b.city},%20gostaria%20de%20falar%20com%20o%20farmac%C3%AAutico." target="_blank" class="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl text-center shadow-sm transition-colors">
+                    <a href="https://wa.me/${b.whatsapp}?text=Ol%C3%A1%20Farm%C3%A1cia%20Gundja%20de%20${encodeURIComponent(b.city)},%20gostaria%20de%20falar%20com%20o%20farmac%C3%AAutico." target="_blank" class="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl text-center shadow-sm transition-colors">
                       WhatsApp Filial ${b.city}
                     </a>
                   </div>
@@ -332,21 +335,28 @@ function renderAppShell() {
       <footer class="bg-slate-900 text-slate-400 text-xs py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 pb-8 border-b border-slate-800">
           <div class="space-y-3">
-            <span class="text-base font-bold text-white tracking-tight">Farmácia Gundja</span>
+            <div class="flex items-center gap-2">
+              <img src="/images/symbol.png" alt="Símbolo Farmácia Gundja" class="w-8 h-8 rounded-lg object-contain bg-white/10 p-1" onerror="this.style.display='none'">
+              <span class="text-base font-bold text-white tracking-tight">Farmácia Gundja</span>
+            </div>
+            <p class="text-[#eea876] font-medium text-xs italic">
+              "Saúde, confiança e cuidado perto de si."
+            </p>
             <p class="text-slate-400 leading-relaxed text-[11px]">
-              Compromisso com a sua saúde. Farmácias modernas em Luanda e Bailundo com dispensação rigorosa de medicamentos e dermocosméticos.
+              Plataforma oficial de gestão farmacêutica, medicamentos e dermocosméticos em Angola. Atendimento presencial nas nossas farmácias e entregas ao domicílio em Luanda.
             </p>
             <p class="text-[11px] text-emerald-400 font-semibold">
-              ● Banco de Dados Supabase Conectado
+              ● Multicaixa Express & Transferência Bancária (Kz / AOA)
             </p>
           </div>
 
           <div>
-            <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-3">Filiais</h4>
+            <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-3">Unidades Luanda</h4>
             <ul class="space-y-2 text-[11px]">
-              <li>Farmácia Gundja — Luanda (Talatona / Deolinda)</li>
-              <li>Farmácia Gundja — Bailundo (Huambo)</li>
-              <li>Entregas ao domicílio</li>
+              <li>Sede Luanda Centro (Ingombota)</li>
+              <li>Filial Talatona (Shopping Talatona)</li>
+              <li>Filial Viana (Estrada de Catete, Km 14)</li>
+              <li>Entregas ao domicílio em Luanda</li>
             </ul>
           </div>
 
@@ -362,21 +372,21 @@ function renderAppShell() {
           </div>
 
           <div>
-            <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-3">Avisos Legais</h4>
+            <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-3">Avisos Legais & Sanitários</h4>
             <p class="text-[11px] text-slate-400 leading-relaxed">
-              Medicamentos sujeitos a receita médica só podem ser dispensados mediante apresentação de receita médica válida. Em caso de persistência de sintomas, consulte o seu médico ou farmacêutico.
+              Medicamentos sujeitos a receita médica só podem ser dispensados mediante apresentação de receita médica válida e validação profissional farmacêutica, em estrita conformidade com a regulamentação sanitária de Angola.
             </p>
           </div>
         </div>
 
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px]">
           <div>
-            © 2026 Farmácia Gundja. Todos os direitos reservados.
+            © 2026 Farmácia Gundja. Todos os direitos reservados. Moeda oficial: Kwanza (Kz / AOA).
           </div>
           <div class="flex gap-4">
             <a href="#" class="hover:text-white transition-colors">Termos de Uso</a>
             <a href="#" class="hover:text-white transition-colors">Privacidade</a>
-            <a href="#" class="hover:text-white transition-colors">Regulamentação</a>
+            <a href="#" class="hover:text-white transition-colors">Regulamentação Sanitária</a>
           </div>
         </div>
       </footer>

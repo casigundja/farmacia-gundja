@@ -1,27 +1,39 @@
 export const initialBranches = [
   {
     id: 1,
-    name: 'Farmácia Gundja — Luanda',
+    name: 'Farmácia Gundja — Sede Luanda Centro',
     slug: 'farmacia-luanda',
     city: 'Luanda',
     province: 'Luanda',
-    address: 'Av. Deolinda Rodrigues, Luanda, Angola',
-    phone: '+244 923 111 222',
-    whatsapp: '244923111222',
-    hours: 'Segunda a Sábado: 07h30 – 21h00 | Domingo: 08h00 – 18h00',
-    stockCount: 50,
+    address: 'Rua Rainha Ginga, Ingombota, Luanda, Angola',
+    phone: '+244 923 000 001',
+    whatsapp: '244923000001',
+    hours: 'Segunda a Sábado: 07h30 – 22h00 | Domingo: 08h00 – 20h00',
+    stockCount: 65,
   },
   {
     id: 2,
-    name: 'Farmácia Gundja — Bailundo',
-    slug: 'farmacia-bailundo',
-    city: 'Bailundo',
-    province: 'Huambo',
-    address: 'Rua Principal do Comércio, Bailundo, Huambo, Angola',
-    phone: '+244 924 333 444',
-    whatsapp: '244924333444',
-    hours: 'Segunda a Sábado: 07h30 – 20h00 | Domingo: 08h00 – 15h00',
-    stockCount: 30,
+    name: 'Farmácia Gundja — Talatona',
+    slug: 'farmacia-talatona',
+    city: 'Talatona',
+    province: 'Luanda',
+    address: 'Av. Luanda Sul, Shopping Talatona, Luanda, Angola',
+    phone: '+244 923 000 002',
+    whatsapp: '244923000002',
+    hours: 'Segunda a Sábado: 08h00 – 22h00 | Domingo: 08h00 – 18h00',
+    stockCount: 45,
+  },
+  {
+    id: 3,
+    name: 'Farmácia Gundja — Viana',
+    slug: 'farmacia-viana',
+    city: 'Viana',
+    province: 'Luanda',
+    address: 'Estrada de Catete, Km 14, Viana, Luanda, Angola',
+    phone: '+244 923 000 003',
+    whatsapp: '244923000003',
+    hours: 'Segunda a Sábado: 07h30 – 21h00 | Domingo: 08h00 – 18h00',
+    stockCount: 40,
   }
 ];
 
@@ -61,7 +73,7 @@ export const initialProducts = [
     unit: 'caixa',
     featured: true,
     requires_prescription: false,
-    stock: { luanda: 50, bailundo: 30 },
+    stock: { luanda: 50, talatona: 30, viana: 25 },
     badge: 'Mais Vendido',
     image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&auto=format&fit=crop&q=80'
   },
@@ -81,7 +93,7 @@ export const initialProducts = [
     unit: 'caixa',
     featured: true,
     requires_prescription: false,
-    stock: { luanda: 45, bailundo: 25 },
+    stock: { luanda: 45, talatona: 25, viana: 20 },
     badge: 'Popular',
     image: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&auto=format&fit=crop&q=80'
   },
@@ -101,7 +113,7 @@ export const initialProducts = [
     unit: 'caixa',
     featured: false,
     requires_prescription: true,
-    stock: { luanda: 30, bailundo: 15 },
+    stock: { luanda: 30, talatona: 15, viana: 10 },
     badge: 'Receita Obrigatória',
     image: 'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=600&auto=format&fit=crop&q=80'
   },
@@ -121,7 +133,7 @@ export const initialProducts = [
     unit: 'tubo',
     featured: true,
     requires_prescription: false,
-    stock: { luanda: 60, bailundo: 40 },
+    stock: { luanda: 60, talatona: 40, viana: 30 },
     badge: 'Promoção',
     image: 'https://images.unsplash.com/photo-1550572017-ed200f5e6343?w=600&auto=format&fit=crop&q=80'
   },
@@ -141,7 +153,7 @@ export const initialProducts = [
     unit: 'frasco',
     featured: true,
     requires_prescription: false,
-    stock: { luanda: 35, bailundo: 20 },
+    stock: { luanda: 35, talatona: 20, viana: 15 },
     badge: 'Exclusivo Gundja',
     image: 'https://images.unsplash.com/photo-1577401239170-897942555fb3?w=600&auto=format&fit=crop&q=80'
   },
@@ -161,7 +173,7 @@ export const initialProducts = [
     unit: 'frasco',
     featured: true,
     requires_prescription: false,
-    stock: { luanda: 40, bailundo: 20 },
+    stock: { luanda: 40, talatona: 20, viana: 15 },
     badge: 'FPS 50+',
     image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=600&auto=format&fit=crop&q=80'
   },
@@ -181,7 +193,7 @@ export const initialProducts = [
     unit: 'pote',
     featured: false,
     requires_prescription: false,
-    stock: { luanda: 25, bailundo: 18 },
+    stock: { luanda: 25, talatona: 18, viana: 12 },
     badge: null,
     image: 'https://images.unsplash.com/photo-1608248597359-59754f24cf74?w=600&auto=format&fit=crop&q=80'
   },
@@ -201,7 +213,7 @@ export const initialProducts = [
     unit: 'frasco',
     featured: false,
     requires_prescription: false,
-    stock: { luanda: 70, bailundo: 50 },
+    stock: { luanda: 70, talatona: 50, viana: 40 },
     badge: null,
     image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&auto=format&fit=crop&q=80'
   },
@@ -221,7 +233,7 @@ export const initialProducts = [
     unit: 'frasco',
     featured: true,
     requires_prescription: false,
-    stock: { luanda: 100, bailundo: 80 },
+    stock: { luanda: 100, talatona: 80, viana: 60 },
     badge: 'Proteção Máxima',
     image: 'https://images.unsplash.com/photo-1584744982491-665216d95f8b?w=600&auto=format&fit=crop&q=80'
   },
@@ -241,7 +253,7 @@ export const initialProducts = [
     unit: 'pacote',
     featured: true,
     requires_prescription: false,
-    stock: { luanda: 50, bailundo: 35 },
+    stock: { luanda: 50, talatona: 35, viana: 25 },
     badge: 'Super Conforto',
     image: 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=600&auto=format&fit=crop&q=80'
   },
@@ -261,7 +273,7 @@ export const initialProducts = [
     unit: 'pacote',
     featured: false,
     requires_prescription: false,
-    stock: { luanda: 80, bailundo: 60 },
+    stock: { luanda: 80, talatona: 60, viana: 45 },
     badge: null,
     image: 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=600&auto=format&fit=crop&q=80'
   },
@@ -281,7 +293,7 @@ export const initialProducts = [
     unit: 'unidade',
     featured: true,
     requires_prescription: false,
-    stock: { luanda: 30, bailundo: 20 },
+    stock: { luanda: 30, talatona: 20, viana: 15 },
     badge: 'Essencial',
     image: 'https://images.unsplash.com/photo-1584017911766-d451b3d0e843?w=600&auto=format&fit=crop&q=80'
   },
@@ -301,7 +313,7 @@ export const initialProducts = [
     unit: 'unidade',
     featured: true,
     requires_prescription: false,
-    stock: { luanda: 15, bailundo: 10 },
+    stock: { luanda: 15, talatona: 10, viana: 8 },
     badge: 'Profissional',
     image: 'https://images.unsplash.com/photo-1628771065518-0d82f1938462?w=600&auto=format&fit=crop&q=80'
   }
