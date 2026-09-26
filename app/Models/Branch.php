@@ -9,7 +9,9 @@ class Branch extends Model
 {
     protected $fillable = [
         'name',
+        'slug',
         'code',
+        'city',
         'province',
         'municipality',
         'commune',
@@ -27,6 +29,7 @@ class Branch extends Model
     {
         return [
             'active' => 'boolean',
+            'opening_hours' => 'array',
         ];
     }
 

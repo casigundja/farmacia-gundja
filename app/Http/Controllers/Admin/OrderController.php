@@ -41,10 +41,10 @@ class OrderController extends Controller
         return view('admin.orders.index', compact('orders', 'filters'));
     }
 
-    public function update(Request $request, Order $order, StockService $stockService, AuditService $auditService): RedirectResponse
+    public function update(\App\Http\Requests\Admin\UpdateOrderStatusRequest $request, Order $order, StockService $stockService, AuditService $auditService): RedirectResponse
     {
-        $data = $request->validate(['status' => ['required', 'in:PENDING,CONFIRMED,SEPARATING,READY,OUT_FOR_DELIVERY,DELIVERED,CANCELLED']]);
-        $nextStatus = $data['status'];
+        $data = $request->validated();
+        $nextStatus = strtoupper($data['status']);
         if ($nextStatus === $order->status) {
             return to_route('admin.orders.index');
         }

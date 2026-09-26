@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['name', 'email', 'password', 'role', 'status'])]
+#[Fillable(['name', 'email', 'phone', 'password', 'role', 'status'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -47,14 +47,24 @@ class User extends Authenticatable
         return $this->role === 'admin';
     }
 
+    public function isAttendant(): bool
+    {
+        return $this->role === 'attendant';
+    }
+
+    public function isStockist(): bool
+    {
+        return $this->role === 'stockist';
+    }
+
     public function isEmployee(): bool
     {
-        return $this->role === 'employee';
+        return in_array($this->role, ['employee', 'attendant', 'stockist']);
     }
 
     public function isCustomer(): bool
     {
-        return $this->role === 'customer';
+        return $this->role === 'customer' || empty($this->role);
     }
 
     public function hasPermission(string $permission): bool

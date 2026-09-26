@@ -24,37 +24,43 @@ class AngolaPharmacySeeder extends Seeder
             [
                 'code' => 'SEDE',
                 'name' => 'Farmácia Gundja - Unidade Sede (Luanda Centro)',
+                'slug' => 'farmacia-gundja-sede',
+                'city' => 'Luanda',
                 'province' => 'Luanda',
                 'municipality' => 'Luanda',
                 'commune' => 'Ingombota',
                 'address' => 'Rua Rainha Ginga, Edifício Gundja, Luanda',
                 'phone' => '(+244) 923 100 200',
                 'email' => 'sede@farmaciagundja.ao',
-                'opening_hours' => 'Segunda a Sábado: 07:30 às 21:00 | Domingo: 08:00 às 16:00',
+                'opening_hours' => ['horario' => 'Segunda a Sábado: 07:30 às 21:00 | Domingo: 08:00 às 16:00'],
                 'active' => true,
             ],
             [
                 'code' => 'TALATONA',
                 'name' => 'Farmácia Gundja - Unidade Talatona',
+                'slug' => 'farmacia-gundja-talatona',
+                'city' => 'Luanda',
                 'province' => 'Luanda',
                 'municipality' => 'Talatona',
                 'commune' => 'Talatona',
                 'address' => 'Avenida Samora Machel, Próximo ao Belas Shopping, Talatona',
                 'phone' => '(+244) 924 200 300',
                 'email' => 'talatona@farmaciagundja.ao',
-                'opening_hours' => 'Segunda a Domingo: 08:00 às 22:00',
+                'opening_hours' => ['horario' => 'Segunda a Domingo: 08:00 às 22:00'],
                 'active' => true,
             ],
             [
                 'code' => 'VIANA',
                 'name' => 'Farmácia Gundja - Unidade Viana',
+                'slug' => 'farmacia-gundja-viana',
+                'city' => 'Luanda',
                 'province' => 'Luanda',
                 'municipality' => 'Viana',
                 'commune' => 'Viana Sede',
                 'address' => 'Estrada de Catete, Km 14, Próximo ao Mercado do 30, Viana',
                 'phone' => '(+244) 925 300 400',
                 'email' => 'viana@farmaciagundja.ao',
-                'opening_hours' => 'Segunda a Sábado: 07:30 às 20:00',
+                'opening_hours' => ['horario' => 'Segunda a Sábado: 07:30 às 20:00'],
                 'active' => true,
             ],
         ];
@@ -74,8 +80,7 @@ class AngolaPharmacySeeder extends Seeder
                 'phone' => '(+244) 923 888 777',
                 'email' => 'comercial@angomedica.co.ao',
                 'address' => 'Zona Industrial de Viana, Luanda',
-                'contact_person' => 'Dra. Luísa Gaspar',
-                'active' => true,
+                'status' => true,
             ],
             [
                 'name' => 'Farmaprom Angola',
@@ -84,8 +89,7 @@ class AngolaPharmacySeeder extends Seeder
                 'phone' => '(+244) 922 444 555',
                 'email' => 'encomendas@farmaprom.ao',
                 'address' => 'Avenida 21 de Janeiro, Morro Bento, Luanda',
-                'contact_person' => 'Dr. António Manuel',
-                'active' => true,
+                'status' => true,
             ],
         ];
 
@@ -252,28 +256,52 @@ class AngolaPharmacySeeder extends Seeder
             $brandId = Brand::query()->where('name', $item['brand'])->value('id') ?? Brand::query()->first()->id;
 
             $product = Product::query()->updateOrCreate(
-                ['internal_code' => $item['code']],
+                ['slug' => Str::slug($item['name'])],
                 [
+                    'sku' => $item['code'],
+                    'segment_id' => 1,
                     'category_id' => $catId,
                     'brand_id' => $brandId,
                     'supplier_id' => $defaultSupplier?->id,
                     'name' => $item['name'],
                     'slug' => Str::slug($item['name']),
-                    'product_type' => $item['type'],
                     'dosage' => $item['dosage'],
                     'pharmaceutical_form' => $item['pharmaceutical_form'],
+                    'unit' => 'UN',
+                    'purchase_mode' => 'BOTH',
                     'requires_prescription' => $item['requires_prescription'],
-                    'controlled' => $item['requires_prescription'],
                     'cost_price' => $item['price'] * 0.65,
                     'sale_price' => $item['price'],
+                    'price' => $item['price'],
                     'promotional_price' => $item['promo'],
-                    'minimum_stock' => 10,
+                    'stock_minimum' => 10,
                     'description' => $item['description'],
                     'active' => true,
+                    'status' => true,
+                    'featured' => false,
                 ]
             );
 
-            // Criar lote inicial na sede e nas filiais
+            // 1. Criar estoque consolidado (Stock)
+            \App\Models\Stock::query()->updateOrCreate(
+                ['product_id' => $product->id],
+                [
+                    'quantity' => 50,
+                    'reserved_quantity' => 0,
+                ]
+            );
+
+            // 2. Criar lote de produto (ProductBatch)
+            \App\Models\ProductBatch::query()->updateOrCreate(
+                ['product_id' => $product->id, 'batch_number' => 'LT-ANG-2026-'.$product->id],
+                [
+                    'manufacturing_date' => today()->subMonths(2),
+                    'expiration_date' => today()->addMonths(18),
+                    'quantity' => 50,
+                ]
+            );
+
+            // 3. Criar lote inicial na sede e nas filiais (compatibilidade com Lot)
             Lot::query()->firstOrCreate(
                 ['product_id' => $product->id, 'lot_number' => 'LOTE-ANG-2026-'.$product->id],
                 [

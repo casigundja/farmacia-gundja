@@ -17,9 +17,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CategorySeeder::class,
             BrandSeeder::class,
-            ProductSeeder::class,
             AngolaPharmacySeeder::class,
             AdminSeeder::class,
+            UserSeeder::class,
         ]);
     }
 }

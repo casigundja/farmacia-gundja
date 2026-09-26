@@ -8,7 +8,18 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Customer extends Model
 {
-    protected $fillable = ['user_id', 'cpf', 'nif_bi', 'birth_date', 'phone', 'province', 'municipality'];
+    protected $fillable = [
+        'user_id',
+        'name',
+        'email',
+        'document_number',
+        'cpf',
+        'nif_bi',
+        'birth_date',
+        'phone',
+        'province',
+        'municipality',
+    ];
 
     /**
      * @return array<string, string>

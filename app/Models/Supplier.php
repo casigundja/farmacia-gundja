@@ -14,8 +14,7 @@ class Supplier extends Model
         'phone',
         'email',
         'address',
-        'contact_person',
-        'active',
+        'status',
     ];
 
     /**
@@ -24,7 +23,7 @@ class Supplier extends Model
     protected function casts(): array
     {
         return [
-            'active' => 'boolean',
+            'status' => 'boolean',
         ];
     }
 

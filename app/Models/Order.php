@@ -19,7 +19,9 @@ class Order extends Model
         'subtotal',
         'discount',
         'shipping',
+        'delivery_fee',
         'total',
+        'payment_status',
         'notes',
         'payment_proof_path',
         'mcx_phone',
@@ -36,6 +38,7 @@ class Order extends Model
             'subtotal' => 'decimal:2',
             'discount' => 'decimal:2',
             'shipping' => 'decimal:2',
+            'delivery_fee' => 'decimal:2',
             'total' => 'decimal:2',
         ];
     }
@@ -68,6 +71,16 @@ class Order extends Model
     public function payments(): HasMany
     {
         return $this->hasMany(Payment::class);
+    }
+
+    public function payment(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Payment::class)->latestOfMany();
+    }
+
+    public function delivery(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Delivery::class)->latestOfMany();
     }
 
     public function formattedTotal(): string

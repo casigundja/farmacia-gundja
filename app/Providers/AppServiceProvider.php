@@ -19,6 +19,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        \Illuminate\Support\Facades\Gate::define('view-reports', [\App\Policies\ReportPolicy::class, 'viewAny']);
     }
 }

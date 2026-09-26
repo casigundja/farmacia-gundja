@@ -23,18 +23,13 @@ class StockController extends Controller
         return view('admin.stock.index', compact('products', 'movements'));
     }
 
-    public function entry(Request $request, StockService $stockService, AuditService $auditService): RedirectResponse
+    public function entry(\App\Http\Requests\Admin\StockEntryRequest $request, StockService $stockService, AuditService $auditService): RedirectResponse
     {
-        $data = $request->validate([
-            'product_id' => ['required', 'integer', 'exists:products,id'],
-            'lot_number' => ['required', 'string', 'max:255'],
-            'expiration_date' => ['nullable', 'date', 'after:today'],
-            'quantity' => ['required', 'integer', 'min:1'],
-            'reason' => ['nullable', 'string', 'max:255'],
-        ]);
+        $data = $request->validated();
+        $lotNumber = $data['lot_number'] ?? ($data['batch_number'] ?? 'LT-'.date('YmdHis'));
         $product = Product::query()->findOrFail($data['product_id']);
-        DB::transaction(function () use ($product, $data, $request, $stockService, $auditService): void {
-            $lot = $stockService->addStock($product, $data['lot_number'], $data['expiration_date'] ?? null, (int) $data['quantity'], $request->user(), $data['reason'] ?? 'Entrada de estoque');
+        DB::transaction(function () use ($product, $data, $lotNumber, $request, $stockService, $auditService): void {
+            $lot = $stockService->addStock($product, $lotNumber, $data['expiration_date'] ?? null, (int) $data['quantity'], $request->user(), $data['reason'] ?? 'Entrada de estoque');
             $auditService->log('STOCK_ENTRY', $product, $request->user(), null, ['lot_id' => $lot->id, 'quantity' => $lot->quantity], $request->ip(), $request->userAgent());
         }, 3);
 

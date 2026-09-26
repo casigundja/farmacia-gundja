@@ -21,10 +21,16 @@ class CategorySeeder extends Seeder
             'Perfumaria',
         ];
 
-        foreach ($categories as $name) {
+        foreach ($categories as $index => $name) {
             Category::query()->updateOrCreate(
                 ['slug' => Str::slug($name)],
-                ['name' => $name, 'active' => true]
+                [
+                    'name' => $name,
+                    'segment_id' => 1,
+                    'sort_order' => $index + 1,
+                    'active' => true,
+                    'status' => true,
+                ]
             );
         }
     }

@@ -35,7 +35,7 @@ class CheckoutController extends Controller
         return view('store.checkout', compact('cart', 'addresses', 'subtotal', 'requiresPrescription', 'branches', 'deliveryRates'));
     }
 
-    public function store(Request $request, CartService $cartService, StockService $stockService, AuditService $auditService): RedirectResponse
+    public function store(\App\Http\Requests\Store\CheckoutRequest $request, CartService $cartService, StockService $stockService, AuditService $auditService): RedirectResponse
     {
         $customer = $request->user()->customer;
         abort_unless($customer, 403);

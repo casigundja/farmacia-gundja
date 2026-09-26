@@ -24,18 +24,27 @@ class ProductSeeder extends Seeder
 
         foreach ($products as [$name, $code, $category, $brand, $type, $price]) {
             $product = Product::query()->updateOrCreate(
-                ['internal_code' => $code],
+                ['sku' => $code],
                 [
                     'category_id' => Category::query()->where('name', $category)->orWhere('slug', Str::slug($category))->value('id') ?? Category::query()->first()->id,
                     'brand_id' => Brand::query()->where('name', $brand)->value('id') ?? Brand::query()->first()->id,
                     'name' => $name,
                     'slug' => Str::slug($name),
+                    'segment_id' => 1,
+                    'sku' => $code,
                     'product_type' => $type,
                     'cost_price' => $price * 0.65,
                     'sale_price' => $price,
                     'minimum_stock' => 5,
+                    'stock_minimum' => 5,
                     'active' => true,
+                    'status' => true,
                 ],
+            );
+
+            \App\Models\Stock::query()->updateOrCreate(
+                ['product_id' => $product->id],
+                ['quantity' => 20, 'reserved_quantity' => 0]
             );
 
             Lot::query()->firstOrCreate(
